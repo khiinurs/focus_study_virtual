@@ -1,7 +1,5 @@
 """
 Virtual Study Session Participation and Remote Focus Ability Survey
-Fundamentals of Programming - 4BUIS008C
-Psychological State Survey Application (Streamlit Web Version)
 """
 
 import streamlit as st
@@ -23,171 +21,269 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-# CUSTOM CSS
+# CSS
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
 
 html, body, [class*="css"] {
-    font-family: 'DM Sans', sans-serif;
-}
-
-h1, h2, h3 {
-    font-family: 'DM Serif Display', serif !important;
-}
-
-.main {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
 .stApp {
-    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background: linear-gradient(160deg, #0d1b2a 0%, #1b2a3b 55%, #0a3d62 100%) !important;
+    min-height: 100vh;
 }
 
 .block-container {
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-    max-width: 760px;
+    max-width: 700px !important;
+    padding: 2.5rem 1.5rem 4rem !important;
 }
 
-.survey-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 16px;
-    padding: 2rem 2.5rem;
-    margin-bottom: 1.5rem;
-    backdrop-filter: blur(12px);
-}
+#MainMenu, footer, header { visibility: hidden; }
 
-.question-number {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: #a78bfa;
+.page-title {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    margin: 0 0 0.15rem;
+}
+.page-sub {
+    color: #90e0ef;
+    font-size: 0.8rem;
+    font-weight: 700;
     text-transform: uppercase;
-    margin-bottom: 0.4rem;
-}
-
-.result-banner {
+    letter-spacing: 0.14em;
     text-align: center;
-    padding: 2.5rem;
-    border-radius: 20px;
-    margin: 1.5rem 0;
-}
-
-.stRadio > div {
-    gap: 0.4rem;
-}
-
-div[data-testid="stRadio"] label {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    padding: 0.6rem 1rem;
-    width: 100%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-bottom: 0.3rem;
-}
-
-div[data-testid="stRadio"] label:hover {
-    background: rgba(167, 139, 250, 0.15);
-    border-color: #a78bfa;
-}
-
-.stButton button {
-    background: linear-gradient(135deg, #7c3aed, #a78bfa);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.7rem 2.2rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 100%;
-}
-
-.stButton button:hover {
-    background: linear-gradient(135deg, #6d28d9, #8b5cf6);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(124,58,237,0.4);
-}
-
-.stTextInput input, .stSelectbox select, .stDateInput input {
-    background: rgba(255,255,255,0.06) !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
-    border-radius: 10px !important;
-    color: white !important;
-    font-family: 'DM Sans', sans-serif !important;
-}
-
-.stDownloadButton button {
-    background: rgba(167,139,250,0.15) !important;
-    border: 1px solid #a78bfa !important;
-    color: #a78bfa !important;
-    border-radius: 10px !important;
-    font-family: 'DM Sans', sans-serif !important;
-}
-
-.pill {
-    display: inline-block;
-    background: rgba(167,139,250,0.2);
-    border: 1px solid #a78bfa;
-    border-radius: 99px;
-    padding: 0.2rem 0.9rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #c4b5fd;
-    margin-right: 0.4rem;
-    margin-bottom: 0.4rem;
-}
-
-.score-box {
-    background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(167,139,250,0.15));
-    border: 1px solid #7c3aed;
-    border-radius: 16px;
-    text-align: center;
-    padding: 1.5rem;
-    margin: 1rem 0;
+    margin-bottom: 1.6rem;
 }
 
 .info-box {
-    background: rgba(167,139,250,0.08);
-    border-left: 3px solid #a78bfa;
-    border-radius: 0 10px 10px 0;
-    padding: 1rem 1.2rem;
-    margin: 1rem 0;
+    background: rgba(0,180,216,0.12);
+    border-left: 4px solid #00b4d8;
+    border-radius: 0 14px 14px 0;
+    padding: 0.9rem 1.2rem;
+    color: #caf0f8;
     font-size: 0.9rem;
-    color: #c4b5fd;
+    font-weight: 600;
+    margin-bottom: 1.4rem;
+}
+
+.q-chip {
+    display: inline-block;
+    background: #00b4d8;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.75rem;
+    border-radius: 99px;
+    margin-bottom: 0.4rem;
+}
+
+/* ── TEXT INPUTS ── */
+div[data-baseweb="input"] {
+    background: #f1f5f9 !important;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+}
+div[data-baseweb="input"]:focus-within {
+    border-color: #00b4d8 !important;
+    box-shadow: 0 0 0 3px rgba(0,180,216,0.2) !important;
+}
+div[data-baseweb="input"] input,
+div[data-baseweb="base-input"] input,
+input[type="text"],
+input[type="date"] {
+    background: transparent !important;
+    color: #0d1b2a !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 0.97rem !important;
+    border: none !important;
+    box-shadow: none !important;
+    caret-color: #00b4d8 !important;
+}
+input::placeholder {
+    color: #94a3b8 !important;
+    font-weight: 400 !important;
+    opacity: 1 !important;
+}
+div[data-baseweb="base-input"] {
+    background: #f1f5f9 !important;
+    border-radius: 12px !important;
+}
+div[data-testid="stDateInput"] > div {
+    background: #f1f5f9 !important;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+}
+div[data-testid="stDateInput"] input {
+    color: #0d1b2a !important;
+    background: transparent !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 600 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+div[data-testid="stTextInput"] > label,
+div[data-testid="stDateInput"] > label {
+    color: #caf0f8 !important;
+    font-weight: 700 !important;
+    font-size: 0.87rem !important;
+}
+
+/* RADIO OPTIONS */
+div[data-testid="stRadio"] > label {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 0.97rem !important;
+}
+div[data-testid="stRadio"] > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+div[data-testid="stRadio"] label {
+    background: rgba(255,255,255,0.07) !important;
+    border: 1.5px solid rgba(255,255,255,0.18) !important;
+    border-radius: 12px !important;
+    padding: 0.65rem 1rem !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+}
+div[data-testid="stRadio"] label:hover {
+    border-color: #00b4d8 !important;
+    background: rgba(0,180,216,0.15) !important;
+    transform: translateX(4px);
+}
+div[data-testid="stRadio"] label p,
+div[data-testid="stRadio"] label span,
+div[data-testid="stRadio"] label div,
+div[data-testid="stRadio"] label * {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+}
+
+/* EXPANDER */
+div[data-testid="stExpander"] {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1.5px solid rgba(0,180,216,0.4) !important;
+    border-radius: 16px !important;
+}
+div[data-testid="stExpander"] summary,
+div[data-testid="stExpander"] summary *,
+div[data-testid="stExpander"] summary p,
+div[data-testid="stExpander"] summary span,
+div[data-testid="stExpander"] summary div,
+div[data-testid="stExpander"] summary svg,
+div[data-testid="stExpander"] > details > summary,
+div[data-testid="stExpander"] > details > summary * {
+    color: #00d4ff !important;
+    fill: #00d4ff !important;
+    font-weight: 700 !important;
+}
+
+/* BUTTONS */
+.stButton > button {
+    background: linear-gradient(135deg, #00b4d8, #0077b6) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.97rem !important;
+    padding: 0.7rem 1.5rem !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 4px 14px rgba(0,119,182,0.4) !important;
+}
+.stButton > button:hover {
+    background: linear-gradient(135deg, #0096c7, #005f8e) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(0,119,182,0.5) !important;
+}
+.stDownloadButton > button {
+    background: rgba(255,255,255,0.08) !important;
+    color: #90e0ef !important;
+    border: 1.5px solid #00b4d8 !important;
+    border-radius: 12px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 700 !important;
+    transition: all 0.2s ease !important;
+}
+.stDownloadButton > button:hover {
+    background: rgba(0,180,216,0.18) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* PROGRESS BAR */
+div[data-testid="stProgressBar"] > div {
+    background: rgba(255,255,255,0.1) !important;
+    border-radius: 99px !important;
+    height: 8px !important;
+}
+div[data-testid="stProgressBar"] > div > div {
+    background: linear-gradient(90deg, #00b4d8, #90e0ef) !important;
+    border-radius: 99px !important;
+}
+
+/* SCORE / RESULT */
+.score-box {
+    background: rgba(0,180,216,0.1);
+    border: 2px solid #00b4d8;
+    border-radius: 18px;
+    text-align: center;
+    padding: 1.8rem;
+    margin: 0.8rem 0 1.2rem;
+}
+.result-banner {
+    border-radius: 18px;
+    padding: 2rem;
+    text-align: center;
+    margin: 0.8rem 0 1.2rem;
+}
+
+hr {
+    border-color: rgba(255,255,255,0.1) !important;
+    margin: 1.2rem 0 !important;
 }
 
 div[data-testid="stFileUploader"] {
-    background: rgba(255,255,255,0.04);
-    border: 1px dashed rgba(167,139,250,0.4);
-    border-radius: 12px;
-    padding: 1rem;
+    background: rgba(255,255,255,0.05) !important;
+    border: 2px dashed #00b4d8 !important;
+    border-radius: 14px !important;
+}
+div[data-testid="stFileUploader"] label {
+    color: #caf0f8 !important;
+    font-weight: 600 !important;
+}
+div[data-testid="stAlert"] {
+    border-radius: 12px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-# SURVEY DATA  (loaded from external file OR hardcoded)
+# SURVEY DATA
 # ─────────────────────────────────────────────
 QUESTIONS_FILE = "questions.json"
 
 
 def load_questions_from_file(filepath: str) -> list:
-    """Load survey questions from an external JSON file."""
     with open(filepath, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def get_hardcoded_questions() -> list:
-    """Return the hardcoded list of survey questions as a fallback."""
     return [
         {
             "text": "How often do you voluntarily join scheduled virtual study sessions?",
@@ -320,7 +416,7 @@ def get_hardcoded_questions() -> list:
             ],
         },
         {
-            "text": "How often do you find yourself multitasking (e.g., social media, gaming) during virtual study sessions?",
+            "text": "How often do you find yourself multitasking (e.g., social media, gaming) during virtual study?",
             "options": [
                 {"label": "Never – I stay fully on task", "score": 0},
                 {"label": "Rarely – a quick glance occasionally", "score": 1},
@@ -343,7 +439,6 @@ def get_hardcoded_questions() -> list:
 
 
 def load_questions() -> list:
-    """Load questions: prefer external file, fall back to hardcoded."""
     if os.path.exists(QUESTIONS_FILE):
         try:
             return load_questions_from_file(QUESTIONS_FILE)
@@ -353,109 +448,110 @@ def load_questions() -> list:
 
 
 # ─────────────────────────────────────────────
-# SCORING LOGIC
+# SCORING
 # ─────────────────────────────────────────────
 PSYCHOLOGICAL_STATES = [
-    (0, 14,  "🌟 High Virtual Participation",
-     "You are an outstanding remote learner. Your virtual participation is excellent and your focus ability is exceptional. Keep it up!",
-     "#10b981"),
+    (0,  14, "🌟 High Virtual Participation",
+     "You are an outstanding remote learner. Your participation and focus are exceptional — keep it up!",
+     "#22d3ee", "rgba(0,180,216,0.15)"),
     (15, 24, "✅ Good Remote Focus",
-     "You participate well and maintain solid focus in virtual settings. Continue your good habits and explore ways to make sessions even more effective.",
-     "#3b82f6"),
-    (25, 34, "⚡ Moderate Ability – Minor Adjustments Needed",
-     "Your remote study habits are decent but there is noticeable room for improvement. Try reducing distractions and setting clearer session goals.",
-     "#f59e0b"),
-    (35, 44, "⚠️ Low Focus – Distraction Management Needed",
-     "You struggle with focus and participation in virtual sessions. Consider setting camera-on rules, using website blockers, and scheduling structured breaks.",
-     "#f97316"),
+     "You participate well and maintain solid focus. Keep building on your good habits!",
+     "#34d399", "rgba(52,211,153,0.15)"),
+    (25, 34, "⚡ Moderate Ability",
+     "Your remote study habits are decent but there is room for improvement. Try reducing distractions.",
+     "#fbbf24", "rgba(251,191,36,0.15)"),
+    (35, 44, "⚠️ Low Focus – Action Needed",
+     "You struggle with focus in virtual sessions. Consider website blockers and structured breaks.",
+     "#fb923c", "rgba(251,146,60,0.15)"),
     (45, 54, "🔴 Poor Remote Engagement",
-     "Virtual study sessions are significantly challenging for you. Seek peer support, improve your study environment, and consider speaking with an academic advisor.",
-     "#ef4444"),
-    (55, 60, "🚨 Critical Disengagement – Support Recommended",
-     "Your virtual participation and remote focus are critically low. Please reach out to your academic support team. Immediate changes to your study routine are essential.",
-     "#dc2626"),
+     "Virtual sessions are significantly challenging. Seek peer support and speak with an academic advisor.",
+     "#f87171", "rgba(248,113,113,0.15)"),
+    (55, 60, "🚨 Critical Disengagement",
+     "Your virtual participation is critically low. Please reach out to your academic support team.",
+     "#ef4444", "rgba(239,68,68,0.15)"),
 ]
 
 
 def get_psychological_state(score: int) -> tuple:
-    """Return the (label, description, color) for a given score."""
-    for low, high, label, desc, color in PSYCHOLOGICAL_STATES:
+    for low, high, label, desc, color, bg in PSYCHOLOGICAL_STATES:
         if low <= score <= high:
-            return label, desc, color
-    return "Unknown", "Score out of expected range.", "#6b7280"
+            return label, desc, color, bg
+    return "Unknown", "Score out of range.", "#94a3b8", "rgba(148,163,184,0.15)"
 
 
 # ─────────────────────────────────────────────
-# VALIDATION FUNCTIONS
+# SHORT LABEL HELPER
+# ─────────────────────────────────────────────
+def short_label(full_label: str, score: int) -> str:
+    for sep in [" – ", " - ", " — "]:
+        if sep in full_label:
+            return f"{full_label.split(sep)[0].strip()} ({score} pts)"
+    return f"{full_label.strip()} ({score} pts)"
+
+
+# ─────────────────────────────────────────────
+# VALIDATION
 # ─────────────────────────────────────────────
 def validate_name(name: str) -> bool:
-    """Allow letters, hyphens, apostrophes, and spaces only."""
     pattern = r"^[a-zA-Z\-' ]+$"
     return bool(re.match(pattern, name.strip())) and len(name.strip()) >= 2
 
 
 def validate_student_id(sid: str) -> bool:
-    """Student ID must contain digits only."""
     return sid.strip().isdigit() and len(sid.strip()) >= 4
 
 
 def validate_dob(dob: date) -> bool:
-    """Date of birth must be in the past and plausible (age 10–100)."""
-    today = date.today()
-    age = (today - dob).days // 365
+    age = (date.today() - dob).days // 365
     return 10 <= age <= 100
 
 
 # ─────────────────────────────────────────────
-# FILE GENERATION FUNCTIONS
+# FILE BUILDERS
 # ─────────────────────────────────────────────
-def build_txt(result: dict) -> str:
+def build_txt(r: dict) -> str:
     lines = [
-        "=" * 50,
-        "REMOTE FOCUS ABILITY SURVEY – RESULTS",
-        "=" * 50,
-        f"Name       : {result['name']}",
-        f"Student ID : {result['student_id']}",
-        f"Date of Birth : {result['dob']}",
-        f"Date Taken : {result['date_taken']}",
+        "=" * 52,
+        "  REMOTE FOCUS ABILITY SURVEY – RESULTS",
+        "=" * 52,
+        f"Name          : {r['name']}",
+        f"Student ID    : {r['student_id']}",
+        f"Date of Birth : {r['dob']}",
+        f"Date Taken    : {r['date_taken']}",
         "",
-        f"Total Score: {result['score']} / 60",
-        f"State      : {result['state']}",
+        f"Total Score   : {r['score']} / {r['max_score']}",
+        f"State         : {r['state']}",
         "",
         "Assessment:",
-        result['description'],
+        r['description'],
         "",
-        "Answer breakdown:",
+        "Answer Breakdown:",
     ]
-    for i, ans in enumerate(result["answers"], 1):
-        lines.append(f"  Q{i:02d}: {ans['selected']} (score: {ans['score']})")
-    lines += ["", "=" * 50]
+    for i, a in enumerate(r["answers"], 1):
+        lines.append(f"  Q{i:02d}: {a['selected']} (+{a['score']} pts)")
+    lines += ["", "=" * 52]
     return "\n".join(lines)
 
 
-def build_csv(result: dict) -> str:
-    output = io.StringIO()
-    writer = csv.writer(output)
-    writer.writerow(["Field", "Value"])
-    writer.writerow(["Name", result["name"]])
-    writer.writerow(["Student ID", result["student_id"]])
-    writer.writerow(["Date of Birth", result["dob"]])
-    writer.writerow(["Date Taken", result["date_taken"]])
-    writer.writerow(["Total Score", result["score"]])
-    writer.writerow(["Psychological State", result["state"]])
-    writer.writerow([])
-    writer.writerow(["Question No", "Selected Answer", "Points"])
-    for i, ans in enumerate(result["answers"], 1):
-        writer.writerow([f"Q{i:02d}", ans["selected"], ans["score"]])
-    return output.getvalue()
+def build_csv(r: dict) -> str:
+    out = io.StringIO()
+    w = csv.writer(out)
+    w.writerow(["Field", "Value"])
+    for key in ["name", "student_id", "dob", "date_taken", "score", "max_score", "state"]:
+        w.writerow([key.replace("_", " ").title(), r[key]])
+    w.writerow([])
+    w.writerow(["Q#", "Answer", "Points"])
+    for i, a in enumerate(r["answers"], 1):
+        w.writerow([f"Q{i:02d}", a["selected"], a["score"]])
+    return out.getvalue()
 
 
-def build_json(result: dict) -> str:
-    return json.dumps(result, indent=2, ensure_ascii=False)
+def build_json(r: dict) -> str:
+    return json.dumps(r, indent=2, ensure_ascii=False)
 
 
 # ─────────────────────────────────────────────
-# LOAD SAVED RESULT FROM UPLOADED FILE
+# FILE LOADER
 # ─────────────────────────────────────────────
 def parse_uploaded_result(uploaded_file) -> dict | None:
     name = uploaded_file.name
@@ -464,32 +560,28 @@ def parse_uploaded_result(uploaded_file) -> dict | None:
         if name.endswith(".json"):
             return json.loads(content)
         elif name.endswith(".csv"):
-            reader = csv.reader(io.StringIO(content.decode("utf-8")))
-            rows = list(reader)
             data = {}
-            for row in rows:
-                if len(row) == 2 and row[0] not in ("Field", "Question No", ""):
+            for row in csv.reader(io.StringIO(content.decode("utf-8"))):
+                if len(row) == 2 and row[0] not in ("Field", "Q#", ""):
                     data[row[0]] = row[1]
             return data
         elif name.endswith(".txt"):
-            text = content.decode("utf-8")
             data = {}
-            for line in text.splitlines():
+            for line in content.decode("utf-8").splitlines():
                 if ":" in line:
                     k, v = line.split(":", 1)
                     data[k.strip()] = v.strip()
             return data
     except Exception:
         return None
-    return None
 
 
 # ─────────────────────────────────────────────
-# SESSION STATE INIT
+# SESSION STATE
 # ─────────────────────────────────────────────
 def init_state():
     defaults = {
-        "page": "home",          # home | details | survey | result | load
+        "page": "home",
         "name": "",
         "student_id": "",
         "dob": None,
@@ -501,29 +593,21 @@ def init_state():
         if k not in st.session_state:
             st.session_state[k] = v
 
-
 init_state()
 
 
 # ─────────────────────────────────────────────
-# ── PAGE: HOME ──
+# PAGE: HOME
 # ─────────────────────────────────────────────
 def page_home():
-    st.markdown("""
-    <div style='text-align:center; padding: 1.5rem 0 0.5rem;'>
-        <div style='font-size:3.5rem;'>🧠</div>
-        <h1 style='color:white; font-size:2.2rem; margin:0.3rem 0 0.1rem;'>Remote Focus Survey</h1>
-        <p style='color:#a78bfa; font-size:1rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:500;'>
-            Virtual Study Session Participation & Remote Focus Ability
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='page-title'>🧠 Remote Focus Survey</div>", unsafe_allow_html=True)
+    st.markdown("<div class='page-sub'>Virtual Study · Participation · Focus Ability</div>", unsafe_allow_html=True)
 
     st.markdown("""
     <div class='info-box'>
-        This survey contains <strong>15 questions</strong> and evaluates your participation in virtual 
-        study sessions and your ability to maintain focus in remote learning environments.
-        The results will help identify your psychological readiness for remote study.
+        This survey contains <strong>15 original questions</strong> evaluating your participation
+        in virtual study sessions and your remote focus ability.
+        Results identify your psychological readiness for online study. 📚
     </div>
     """, unsafe_allow_html=True)
 
@@ -537,16 +621,15 @@ def page_home():
             st.session_state.page = "load"
             st.rerun()
 
-    st.markdown("---")
-    st.markdown("<p style='color:#6b7280; font-size:0.78rem; text-align:center;'>Fundamentals of Programming · 4BUIS008C · WIUT</p>", unsafe_allow_html=True)
-
 
 # ─────────────────────────────────────────────
-# ── PAGE: DETAILS ──
+# PAGE: DETAILS
 # ─────────────────────────────────────────────
 def page_details():
-    st.markdown("<h2 style='color:white;'>Your Details</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='color:#9ca3af;'>Please fill in your information before starting the survey.</p>", unsafe_allow_html=True)
+    st.markdown("<div class='page-title' style='font-size:1.6rem;'>👤 Your Details</div>",
+                unsafe_allow_html=True)
+    st.markdown("<div class='page-sub'>Fill in your info before the survey starts</div>",
+                unsafe_allow_html=True)
 
     name = st.text_input("Full Name", placeholder="e.g. Mary Ann Smith-Jones")
     student_id = st.text_input("Student ID (digits only)", placeholder="e.g. 002345")
@@ -560,17 +643,11 @@ def page_details():
     errors = []
 
     if st.button("Continue to Survey →"):
-        # Validation using for loop (LO requirement)
-        required_fields = [
-            (name, "name"),
-            (student_id, "student_id"),
-            (str(dob), "dob"),
-        ]
+        required_fields = [(name, "Full Name"), (student_id, "Student ID")]
         for value, field in required_fields:
             if not value or not value.strip():
-                errors.append(f"Field '{field}' cannot be empty.")
+                errors.append(f"'{field}' cannot be empty.")
 
-        # While-loop style validation for name
         attempt = 0
         name_valid = False
         while attempt < 1:
@@ -580,12 +657,10 @@ def page_details():
 
         if not name_valid and name:
             errors.append("Name may only contain letters, hyphens, apostrophes, and spaces.")
-
         if student_id and not validate_student_id(student_id):
             errors.append("Student ID must contain digits only (minimum 4 digits).")
-
         if dob and not validate_dob(dob):
-            errors.append("Date of birth is invalid. Age must be between 10 and 100 years.")
+            errors.append("Date of birth is invalid. Age must be between 10 and 100.")
 
         if errors:
             for e in errors:
@@ -598,54 +673,52 @@ def page_details():
             st.session_state.page = "survey"
             st.rerun()
 
-    if st.button("← Back"):
+    if st.button("← Back to Home"):
         st.session_state.page = "home"
         st.rerun()
 
 
 # ─────────────────────────────────────────────
-# ── PAGE: SURVEY ──
+# PAGE: SURVEY
 # ─────────────────────────────────────────────
 def page_survey():
     questions: list = st.session_state.questions
 
-    st.markdown(f"<h2 style='color:white;'>Survey</h2>", unsafe_allow_html=True)
+    st.markdown("<div class='page-title' style='font-size:1.6rem;'>📋 Survey Questions</div>",
+                unsafe_allow_html=True)
+
+    answered_count = sum(
+        1 for i in range(len(questions))
+        if st.session_state.get(f"q_{i}") is not None
+    )
     st.markdown(
-        f"<p style='color:#9ca3af;'>Answer all <strong>{len(questions)}</strong> questions below.</p>",
+        f"<p style='color:#90e0ef;font-size:0.88rem;font-weight:600;text-align:center;margin-bottom:0.6rem;'>"
+        f"{answered_count} of {len(questions)} answered</p>",
         unsafe_allow_html=True,
     )
-
-    # Progress bar
-    answered = len(st.session_state.answers)
-    st.progress(min(answered / len(questions), 1.0))
+    st.progress(answered_count / len(questions))
+    st.markdown("<div style='margin-bottom:1.4rem;'></div>", unsafe_allow_html=True)
 
     selected_answers = []
     all_answered = True
 
     for i, q in enumerate(questions):
         option_labels = [opt["label"] for opt in q["options"]]
-        st.markdown(f"""
-        <div class='question-number'>Question {i + 1} of {len(questions)}</div>
-        """, unsafe_allow_html=True)
+        st.markdown(f"<div class='q-chip'>Question {i + 1} of {len(questions)}</div>",
+                    unsafe_allow_html=True)
 
-        choice = st.radio(
-            q["text"],
-            options=option_labels,
-            key=f"q_{i}",
-            index=None,
-        )
+        choice = st.radio(q["text"], options=option_labels, key=f"q_{i}", index=None)
 
         if choice is None:
             all_answered = False
             selected_answers.append(None)
         else:
-            # Find score for chosen label
             score_val = next(
                 (opt["score"] for opt in q["options"] if opt["label"] == choice), 0
             )
             selected_answers.append({"selected": choice, "score": score_val})
 
-        st.markdown("<div style='margin-bottom:1.2rem;'></div>", unsafe_allow_html=True)
+        st.markdown("<hr>", unsafe_allow_html=True)
 
     col1, col2 = st.columns([1, 2])
     with col1:
@@ -653,58 +726,71 @@ def page_survey():
             st.session_state.page = "details"
             st.rerun()
     with col2:
-        if st.button("Submit Survey →"):
+        if st.button("✅  Submit Survey"):
             if not all_answered:
                 st.warning("⚠️ Please answer all questions before submitting.")
             else:
-                total = sum(a["score"] for a in selected_answers)
                 st.session_state.answers = selected_answers
-                st.session_state.score = total
+                st.session_state.score = sum(a["score"] for a in selected_answers)
                 st.session_state.page = "result"
                 st.rerun()
 
 
 # ─────────────────────────────────────────────
-# ── PAGE: RESULT ──
+# PAGE: RESULT
 # ─────────────────────────────────────────────
 def page_result():
     score: int = st.session_state.score
     name: str = st.session_state.name
     answers: list = st.session_state.answers
     questions: list = st.session_state.questions
-
-    label, description, color = get_psychological_state(score)
     max_score = len(questions) * 4
 
-    st.markdown(f"<h2 style='color:white;'>Your Results</h2>", unsafe_allow_html=True)
+    label, description, color, bg = get_psychological_state(score)
 
-    # Score box
+    st.markdown("<div class='page-title' style='font-size:1.6rem;'>🎯 Your Results</div>",
+                unsafe_allow_html=True)
+    st.markdown(
+        f"<p style='color:#90e0ef;font-size:0.88rem;font-weight:600;text-align:center;"
+        f"margin-bottom:1rem;'>Hi {name}! Here's how you did.</p>",
+        unsafe_allow_html=True,
+    )
+
     st.markdown(f"""
     <div class='score-box'>
-        <p style='color:#c4b5fd; font-size:0.85rem; margin:0 0 0.3rem; letter-spacing:0.1em; text-transform:uppercase;'>Total Score</p>
-        <p style='color:white; font-size:3rem; font-weight:700; margin:0; font-family:DM Serif Display, serif;'>{score} <span style='font-size:1.4rem; color:#9ca3af;'>/ {max_score}</span></p>
+        <p style='color:#90e0ef;font-size:0.75rem;font-weight:800;letter-spacing:0.14em;
+                  text-transform:uppercase;margin:0 0 0.4rem;'>Total Score</p>
+        <p style='color:#ffffff;font-size:3.2rem;font-weight:800;margin:0;line-height:1;'>
+            {score}
+            <span style='font-size:1.3rem;color:#90e0ef;font-weight:600;'>&nbsp;/ {max_score}</span>
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
-    # State banner
     st.markdown(f"""
-    <div class='result-banner' style='background: {color}22; border: 2px solid {color};'>
-        <p style='color:{color}; font-size:1.5rem; font-weight:700; margin:0 0 0.5rem; font-family:DM Serif Display, serif;'>{label}</p>
-        <p style='color:#d1d5db; font-size:0.95rem; margin:0;'>{description}</p>
+    <div class='result-banner' style='background:{bg};border:2px solid {color};'>
+        <p style='color:{color};font-size:1.4rem;font-weight:800;margin:0 0 0.5rem;'>{label}</p>
+        <p style='color:#ffffff;font-size:0.93rem;font-weight:600;margin:0;'>{description}</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # Score ranges reference
-    with st.expander("📊 View all scoring bands"):
-        for low, high, lbl, _, clr in PSYCHOLOGICAL_STATES:
-            st.markdown(f"""
-            <span class='pill' style='background:{clr}22; border-color:{clr}; color:{clr};'>{low}–{high}</span> {lbl}<br>
-            """, unsafe_allow_html=True)
+    with st.expander("📊 View all score bands"):
+        for low, high, lbl, _, clr, _ in PSYCHOLOGICAL_STATES:
+            st.markdown(
+                f"<div style='display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;'>"
+                f"<span style='background:{clr};color:#ffffff;border-radius:99px;"
+                f"padding:0.2rem 0.85rem;font-size:0.75rem;font-weight:800;"
+                f"white-space:nowrap;min-width:58px;text-align:center;display:inline-block;'>"
+                f"{low}–{high}</span>"
+                f"<span style='color:#ffffff;font-size:0.93rem;font-weight:700;'>{lbl}</span>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
 
-    st.markdown("---")
+    st.markdown("<hr>", unsafe_allow_html=True)
 
-    # Save options
-    st.markdown("<h3 style='color:white;'>💾 Save Your Results</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#caf0f8;font-weight:700;font-size:1rem;margin-bottom:0.6rem;'>"
+                "💾 Save Your Results</p>", unsafe_allow_html=True)
 
     result_data = {
         "name": name,
@@ -718,41 +804,44 @@ def page_result():
         "answers": answers,
     }
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.download_button(
-            "⬇ Download TXT",
-            data=build_txt(result_data),
-            file_name=f"{st.session_state.student_id}_result.txt",
-            mime="text/plain",
-        )
-    with col2:
-        st.download_button(
-            "⬇ Download CSV",
-            data=build_csv(result_data),
-            file_name=f"{st.session_state.student_id}_result.csv",
-            mime="text/csv",
-        )
-    with col3:
-        st.download_button(
-            "⬇ Download JSON",
-            data=build_json(result_data),
-            file_name=f"{st.session_state.student_id}_result.json",
-            mime="application/json",
-        )
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.download_button("⬇ TXT", data=build_txt(result_data),
+                           file_name=f"{st.session_state.student_id}_result.txt",
+                           mime="text/plain", use_container_width=True)
+    with c2:
+        st.download_button("⬇ CSV", data=build_csv(result_data),
+                           file_name=f"{st.session_state.student_id}_result.csv",
+                           mime="text/csv", use_container_width=True)
+    with c3:
+        st.download_button("⬇ JSON", data=build_json(result_data),
+                           file_name=f"{st.session_state.student_id}_result.json",
+                           mime="application/json", use_container_width=True)
 
-    st.markdown("---")
+    st.markdown("<hr>", unsafe_allow_html=True)
 
-    # Answer breakdown
-    with st.expander("📋 View answer breakdown"):
+    with st.expander("📋 View your answer breakdown"):
         for i, (q, a) in enumerate(zip(questions, answers), 1):
-            st.markdown(f"""
-            <div style='margin-bottom:0.8rem;'>
-                <span style='color:#9ca3af; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;'>Q{i:02d}</span><br>
-                <span style='color:#e5e7eb; font-size:0.88rem;'>{q['text']}</span><br>
-                <span style='color:#a78bfa; font-size:0.85rem;'>→ {a['selected']} <span style='color:#6b7280;'>(+{a['score']} pts)</span></span>
-            </div>
-            """, unsafe_allow_html=True)
+            display = short_label(a["selected"], a["score"])
+            if a["score"] == 0:
+                pts_color = "#34d399"
+            elif a["score"] <= 2:
+                pts_color = "#fbbf24"
+            else:
+                pts_color = "#f87171"
+            st.markdown(
+                f"<div style='margin-bottom:1rem;padding-bottom:1rem;"
+                f"border-bottom:1px solid rgba(255,255,255,0.1);'>"
+                f"<span style='background:#00b4d8;color:#fff;border-radius:99px;"
+                f"padding:0.15rem 0.7rem;font-size:0.72rem;font-weight:800;"
+                f"letter-spacing:0.1em;'>Q{i:02d}</span><br>"
+                f"<span style='color:#ffffff;font-size:0.9rem;font-weight:600;"
+                f"line-height:1.6;display:block;margin:0.35rem 0 0.25rem;'>{q['text']}</span>"
+                f"<span style='color:{pts_color};font-size:0.9rem;font-weight:700;'>"
+                f"→ {display}</span>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
 
     if st.button("🔄 Take Survey Again"):
         for key in ["page", "name", "student_id", "dob", "answers", "score"]:
@@ -762,36 +851,40 @@ def page_result():
 
 
 # ─────────────────────────────────────────────
-# ── PAGE: LOAD ──
+# PAGE: LOAD
 # ─────────────────────────────────────────────
 def page_load():
-    st.markdown("<h2 style='color:white;'>Load Saved Results</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='color:#9ca3af;'>Upload a previously saved survey file (.json, .csv, or .txt).</p>", unsafe_allow_html=True)
+    st.markdown("<div class='page-title' style='font-size:1.6rem;'>📂 Load Saved Results</div>",
+                unsafe_allow_html=True)
+    st.markdown("<div class='page-sub'>Upload a .json, .csv, or .txt result file</div>",
+                unsafe_allow_html=True)
 
-    uploaded = st.file_uploader("Choose a result file", type=["json", "csv", "txt"])
+    uploaded = st.file_uploader("Choose your saved result file", type=["json", "csv", "txt"])
 
     if uploaded:
         result = parse_uploaded_result(uploaded)
         if result:
             st.success("✅ File loaded successfully!")
-            fields = [
+            display_fields = [
                 ("Name", result.get("name", "—")),
-                ("Student ID", result.get("student_id", result.get("Student ID", "—"))),
-                ("Date of Birth", result.get("dob", result.get("Date of Birth", "—"))),
+                ("Student ID", result.get("student_id", result.get("Student Id", "—"))),
+                ("Date of Birth", result.get("dob", result.get("Dob", "—"))),
                 ("Date Taken", result.get("date_taken", result.get("Date Taken", "—"))),
-                ("Total Score", result.get("score", result.get("Total Score", "—"))),
-                ("Psychological State", result.get("state", result.get("Psychological State", "—"))),
+                ("Total Score", result.get("score", result.get("Score", "—"))),
+                ("Psychological State", result.get("state", result.get("State", "—"))),
             ]
-            for field, val in fields:
-                st.markdown(f"""
-                <div style='display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid rgba(255,255,255,0.07);'>
-                    <span style='color:#9ca3af; font-size:0.88rem;'>{field}</span>
-                    <span style='color:white; font-size:0.88rem; font-weight:500;'>{val}</span>
-                </div>
-                """, unsafe_allow_html=True)
+            for field, val in display_fields:
+                st.markdown(
+                    f"<div style='display:flex;justify-content:space-between;align-items:center;"
+                    f"padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.08);'>"
+                    f"<span style='color:#90e0ef;font-size:0.85rem;font-weight:600;'>{field}</span>"
+                    f"<span style='color:#ffffff;font-size:0.88rem;font-weight:800;'>{val}</span></div>",
+                    unsafe_allow_html=True,
+                )
         else:
-            st.error("❌ Could not parse the file. Please upload a valid survey result file.")
+            st.error("❌ Could not read the file. Please upload a valid survey result file.")
 
+    st.markdown("<div style='margin-top:1.2rem;'></div>", unsafe_allow_html=True)
     if st.button("← Back to Home"):
         st.session_state.page = "home"
         st.rerun()
